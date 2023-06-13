@@ -16,7 +16,16 @@ boton.addEventListener("click", function(infoEvento){
     let fecha = cajaFecha.value
     let telefono = cajaTel.value
     let hora = cajaHora.value
-    let errores = []
+    let errores = [];
+    let citas;
+    let datosMemoria = JSON.parse(localStorage.getItem("datos"));
+    if(datosMemoria==null){
+        citas =[];
+    }
+    else{
+        citas = datosMemoria;
+        //citas = citas.push(datosMemoria);
+    }
     if(!usuario){
         errores.push("El nombre es obligatorio");
         cajaNombres.classList.add("is-invalid");
@@ -51,8 +60,9 @@ boton.addEventListener("click", function(infoEvento){
             fecha,
             hora
         }
+        citas.push(datosEnvio)
         //abrimos memoria para almacenar la data local
-        localStorage.setItem("datos", JSON.stringify(datosEnvio))
+        localStorage.setItem("datos", JSON.stringify(citas))
     }
     
     // console.log(usuario, correo, fecha, telefono, hora)
