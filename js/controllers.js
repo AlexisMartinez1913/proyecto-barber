@@ -42,6 +42,19 @@ boton.addEventListener("click", function(infoEvento){
         cajaHora.classList.add("is-invalid");
 
     }
+    
+    if(errores.length==0){
+        let datosEnvio = {
+            usuario,
+            correo,
+            telefono,
+            fecha,
+            hora
+        }
+        //abrimos memoria para almacenar la data local
+        localStorage.setItem("datos", JSON.stringify(datosEnvio))
+    }
+    
     // console.log(usuario, correo, fecha, telefono, hora)
     // Swal.fire(
     //     'Excelent',
