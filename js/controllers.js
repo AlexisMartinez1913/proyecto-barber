@@ -26,19 +26,51 @@ boton.addEventListener("click", function(infoEvento){
         citas = datosMemoria;
         //citas = citas.push(datosMemoria);
     }
+
+    function validarEmail(correo){
+        const regla = /^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
+        return regla.test(correo)
+    }
+    function mostrarError(usuario, mensaje) {
+        let campo = document.getElementById(usuario);
+        let errorContainer = document.getElementById("error-" + usuario);
+        errorContainer.innerText = mensaje;
+        campo.classList.add("is-invalid");
+    }
     if(!usuario){
         errores.push("El nombre es obligatorio");
         cajaNombres.classList.add("is-invalid");
+        mostrarError("usuario", "El nombre es obligatorio");
 
+    } else if(usuario.length<10){
+        errores.push("El nombre debe tener al menos 10 caracteres")
+        cajaNombres.classList.add("is-invalid")
+        mostrarError("usuario", "El nombre debe tener al menos 10 caracteres");
     }
+
+    // cajaNombres.addEventListener("input", function() {
+    //     cajaNombres.classList.remove("is-invalid");
+    //     cajaNombres.nextElementSibling.textContent = "";
+    // });
+    
+
+
     if(!correo){
-        errores.push("El correo es obligatorio");
-        cajaCorreo.classList.add("is-invalid");
+        errores.push("El correo es obligatorio")
+        cajaCorreo.classList.add("is-invalid")
+        mostrarError("correo", "El correo es obligatorio");
 
+    }else if(!validarEmail(correo)){
+        errores.push("El correo electrónico no es válido")
+        cajaCorreo.classList.add("is-invalid")
+        mostrarError("correo", "El correo electrónico no es válido");
     }
+
+
     if(!telefono){
         errores.push("El telefono es obligatorio");
         cajaTel.classList.add("is-invalid");
+        mostrarError("telefono", "El telefono es obligatorio");
 
     }
     if(!fecha){
@@ -63,6 +95,16 @@ boton.addEventListener("click", function(infoEvento){
         citas.push(datosEnvio)
         //abrimos memoria para almacenar la data local
         localStorage.setItem("datos", JSON.stringify(citas))
+    }
+
+    
+
+    if(errores.length>0){
+        Swal.fire(
+        'Error',
+        'Por favor, diligencia correctamente el formulario',
+        'error'
+    );
     }
     
     // console.log(usuario, correo, fecha, telefono, hora)
