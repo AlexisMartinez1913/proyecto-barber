@@ -76,11 +76,13 @@ boton.addEventListener("click", function(infoEvento){
     if(!fecha){
         errores.push("La fecha es obligatoria");
         cajaFecha.classList.add("is-invalid");
+        mostrarError("fecha", "la fecha es obligatoria");
 
     }
     if(hora == 'seleccione una hora'){
         errores.push("La hora es obligatoria");
         cajaHora.classList.add("is-invalid");
+        mostrarError("hora", "la hora es obligatoria");
 
     }
     
@@ -95,6 +97,12 @@ boton.addEventListener("click", function(infoEvento){
         citas.push(datosEnvio)
         //abrimos memoria para almacenar la data local
         localStorage.setItem("datos", JSON.stringify(citas))
+
+        Swal.fire(
+        'Excelent',
+        'Cita Agendada',
+        'success'
+      )
     }
 
     
